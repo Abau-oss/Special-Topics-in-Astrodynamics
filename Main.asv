@@ -1,0 +1,91 @@
+
+% Constants
+AU = 149597870.7; % [km]
+
+mu_earth = 3.0542e-6;
+mu_mars  = 3.227154996101724e-7;
+
+LU_mars = 208321282; % Sun-Mars length unit [km]
+
+% Earth-Sun System
+
+L_earth = lagrange(mu_earth);
+L_earth_km = L_earth * AU;
+
+% Mars-Sun System
+
+L_mars = lagrange(mu_mars);
+
+% Convert normalized coordinates to km
+L_mars_km = L_mars * LU_mars;
+
+
+% Other 
+x_sun = 0;
+
+% Earth position
+x_earth = AU;
+L1_earth = L_earth_km(1);
+
+% Mars position
+x_mars = LU_mars;
+
+% ---------------- Print Results ----------------
+
+fprintf('========================================\n');
+fprintf(' Earth-Sun System\n');
+fprintf('========================================\n');
+
+fprintf('L3 = %.6f km\n', L_earth_km(1));
+fprintf('L1 = %.6f km\n', L_earth_km(2));
+fprintf('L2 = %.6f km\n\n', L_earth_km(3));
+fprintf('L1 - Earth Distance', )
+
+fprintf('========================================\n');
+fprintf(' Mars-Sun System\n');
+fprintf('========================================\n');
+
+fprintf('L3 = %.6f km\n', L_mars_km(1));
+fprintf('L1 = %.6f km\n', L_mars_km(2));
+fprintf('L2 = %.6f km\n\n', L_mars_km(3));
+
+% ---------------- Plot ----------------
+
+figure;
+hold on;
+grid on;
+
+% Earth-Sun Lagrange points
+plot(L_earth_km, [0 0 0], ...
+    'bo', 'MarkerFaceColor', 'b', ...
+    'DisplayName', 'Earth-Sun Lagrange Points');
+
+% Mars-Sun Lagrange points
+plot(L_mars_km, [0 0 0], ...
+    'ro', 'MarkerFaceColor', 'r', ...
+    'DisplayName', 'Mars-Sun Lagrange Points');
+
+% Sun
+plot(x_sun, 0, ...
+    'yo', 'MarkerSize', 12, ...
+    'MarkerFaceColor', 'y', ...
+    'DisplayName', 'Sun');
+
+% Earth
+plot(x_earth, 0, ...
+    'bo', 'MarkerSize', 10, ...
+    'MarkerFaceColor', 'c', ...
+    'DisplayName', 'Earth');
+
+% Mars
+plot(x_mars, 0, ...
+    'ro', 'MarkerSize', 10, ...
+    'MarkerFaceColor', 'm', ...
+    'DisplayName', 'Mars');
+
+xlabel('x [km]');
+ylabel('y [km]');
+title('Collinear Lagrange Points in Sun-Earth and Sun-Mars Systems');
+
+legend('Location', 'best');
+axis equal;
